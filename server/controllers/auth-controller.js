@@ -5,13 +5,35 @@ const userService = require("../services/user-service");
 class AuthController {
   async signup(req, res, next) {
     try {
-      const errors = validationResult(req).errors;
-      if (errors.length > 0) {
-        throw new ApiError(400, errors[0].msg)
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        throw ApiError.BadRequest(errors.errors[0].msg);
       }
 
       const userData = await userService.CreateUser(req.body);
-      res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
+      res.cookie("refreshToken", userData.refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+      });
+
+      return res.json(userData);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async signin(req, res, next) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        throw ApiError.BadRequest(errors.errors[0].msg);
+      }
+      const userData = await userService.Authorize(req);
+
+      res.cookie("refreshToken", userData.refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+      });
 
       return res.json(userData);
     } catch (error) {
