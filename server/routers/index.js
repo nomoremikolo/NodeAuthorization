@@ -1,7 +1,10 @@
 const Router = require("express").Router;
 const router = new Router();
-const AuthRouter = require("./auth-router")
+const usersRouter = require('./users-router')
+const authRouter = require('./auth-router')
 
-AuthRouter.AddAuthorizeRouters(router)
+router.use(usersRouter)
+router.use(authRouter)
+
 
 module.exports = router;
