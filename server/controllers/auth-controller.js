@@ -68,9 +68,20 @@ class AuthController {
   async getSelfInfo(req, res, next){
     try {
       const userId = req.user.id
-      const userData = await userService.getUserInfo(userId)      
+      const userData = await userService.GetUserInfo(userId)      
 
-      res.json(userData)
+      return res.json(userData)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async updateSelfInfo(req, res, next){
+    try {
+      const userId = req.user.id
+      const userData = await userService.UpdateUser({userId, userData: req.body});
+      
+      return res.json(userData)
     } catch (error) {
       next(error)
     }
