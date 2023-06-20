@@ -25,6 +25,10 @@ class UserService {
     };
   }
 
+  async UpdateUser(){
+    
+  }
+
   async Authorize(req) {
     const candidate = req.candidate;
     const userDto = new UserDto(candidate);
@@ -57,6 +61,15 @@ class UserService {
       ...tokens,
       user: userDto,
     };
+  }
+
+  async getUserInfo(userId){
+    const user = await UserModel.findById(userId)
+    if(!user)
+      throw ApiError.BadRequest("Користувача не знайдено")
+    const userDto = new UserDto(user)
+    
+    return userDto
   }
 }
 module.exports = new UserService();

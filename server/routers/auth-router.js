@@ -1,5 +1,6 @@
 const authController = require("../controllers/auth-controller");
-const { registerValidation, authorizeValidation } = require("../validations/userValidation");
+const { registerValidation, authorizeValidation, updateUserValidation } = require("../validations/userValidation");
+const authMiddleware = require("../middlewares/auth-middleware")
 
 module.exports = class AuthRouter {
   static AddAuthorizeRouters(router) {
@@ -13,6 +14,7 @@ module.exports = class AuthRouter {
       authorizeValidation,
       authController.signin
     );
+    router.get("/me", authMiddleware, authController.getSelfInfo)
     router.post("/logout", authController.signout);
     router.get("/refresh", authController.refresh);
   }

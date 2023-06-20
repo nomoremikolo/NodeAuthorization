@@ -64,6 +64,17 @@ class AuthController {
       next(error)
     }
   }
+
+  async getSelfInfo(req, res, next){
+    try {
+      const userId = req.user.id
+      const userData = await userService.getUserInfo(userId)      
+
+      res.json(userData)
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 module.exports = new AuthController();
