@@ -4,8 +4,8 @@ const authMiddleware = require("../middlewares/auth-middleware");
 const { getUsersValidation } = require("../validations/usersValidation");
 const router = require("express").Router();
 
-router.get(
-  "/users/",
+router.post(
+  "/users",
   authMiddleware,
   getUsersValidation,
   usersController.GetUsers
