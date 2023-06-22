@@ -1,0 +1,40 @@
+.search{
+    width: 250px;
+}
+@media only screen and (min-width: 330px) {
+    .search{
+        width: 340px;
+        margin: auto;
+    }
+}
+@media only screen and (min-width: 576px) {
+    .search{
+        width: 450px;
+        margin: auto;
+    }
+}
+@media only screen and (min-width: 768px) {
+    .search{
+        width: 650px;
+    }
+}
+@media only screen and (min-width: 992px) {
+    .search{
+        width: 550px;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    .search{
+        width: 720px;
+    }
+}
+
+.text-icon{
+    font-size: 9px;
+}
+.category{
+    font-size: 14px;
+}
+body{
+    background-color: #f6f6f6;
+}
